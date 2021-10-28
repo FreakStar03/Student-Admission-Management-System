@@ -54,8 +54,8 @@ public class PersonalDetailsForm extends JFrame {
         JLabel titleMain = new JLabel("A P Shah Institude Of Technology", JLabel.CENTER);
         JLabel pdtext = new JLabel("Personal Details");
         JLabel fn = new JLabel("First Name:");
-        JLabel ln = new JLabel("Last Name:");
         JLabel mn = new JLabel("Middle Name:");
+        JLabel ln = new JLabel("Last Name:");
         JLabel pno1 = new JLabel("Phone No.1:");
         JLabel pno2 = new JLabel("Phone No.2:");
         JLabel adds = new JLabel("Address:");
