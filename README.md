@@ -1,5 +1,5 @@
 ## Student Registration Portal System
-Java Mini Project `B.E`-`S.E`  
+Java Mini Project `BE`-`Engg. S.E`  
 #### Folder Structure
   Just run Main.java in Src Folder!
 #### Dependency Management
