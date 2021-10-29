@@ -3,5 +3,5 @@ Java Mini Project `B.E`-`S.E`
 ### Folder Structure
   Just run Main.java in Src Folder!
 ## Dependency Management
-  -Java Oracle JDK 16
+  - Java Oracle JDK 16
 
