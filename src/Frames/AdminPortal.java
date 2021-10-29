@@ -5,12 +5,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.sql.*;
-//import java.util.ArrayList;
-//import java.util.Arrays;
  import javax.swing.table.DefaultTableModel;
 public class AdminPortal extends JFrame{
     static int Tstart = 0; 
     static int Tend = 20; 
+
 
     public AdminPortal(){
         setTitle("Admin Portal");
@@ -139,7 +138,7 @@ public class AdminPortal extends JFrame{
         setVisible(true);
     }
     public  String[][] my_db_select() {
-        ////////////
+        
         String[][] data ={ }  ;
         int start = Tstart;
         int end = Tend;
@@ -156,7 +155,7 @@ public class AdminPortal extends JFrame{
            int i=0;
            while(rs.next())  {
            for(int j=0;j<rsmd.getColumnCount();j++) {
-           System.out.print(rs.getString(j+1));
+           //System.out.print(rs.getString(j+1));
            data[i][j]=rs.getString(j+1);
            }
            //System.out.println();

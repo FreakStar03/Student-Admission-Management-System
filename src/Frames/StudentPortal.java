@@ -9,6 +9,7 @@ public class StudentPortal extends JFrame{
     public boolean isLogout = false;
     static int StudentID;
     static String StudentName;
+    static ArrayList<String> enrollList= new ArrayList<String>();
     static boolean Pbtn = false;
     static boolean Rbtn = false;
 
@@ -72,6 +73,17 @@ public class StudentPortal extends JFrame{
         LogoutBtn.setFocusPainted(false);
 
 
+                //Badges
+        if (enrollList.isEmpty() != true) {
+            for(int x = 0,  y = 480; x < enrollList.size(); x++){
+                JLabel localLabel = new JLabel(enrollList.get(x));
+                y += 40 ;
+                localLabel.setBounds(90,y,332,42);
+                panel.add(localLabel);
+            } 
+            enrollList.clear();
+        }
+
         //addmissionForm.setFocusPainted(false);
         //obj adding
         panel.add(title);
@@ -104,7 +116,6 @@ public class StudentPortal extends JFrame{
 
         bgButton.setBounds(43,246,1194,180);
         bg2.setBounds(43,473,1194,198);
-
 
         //function
 
@@ -162,12 +173,13 @@ public class StudentPortal extends JFrame{
     public StudentPortal(int ID){
         CheckUser(ID);
         CheckForms(ID);
+        checkEnrollement(ID);
         StudentPortal st = new StudentPortal();
         st.setVisible(true);
     } 
 
     //Checkers
-    public void CheckUser(int a){
+    private void CheckUser(int a){
     try{  
         Class.forName("com.mysql.cj.jdbc.Driver");  
         Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
@@ -187,7 +199,7 @@ public class StudentPortal extends JFrame{
         }catch(Exception e){ System.out.println(e);}        
     }
 
-    public void CheckForms(int a){
+    private void CheckForms(int a){
         try{  
             ArrayList<String> list = new ArrayList<>(Arrays.asList("PersonalData"));
             for(int counter = 0; counter < list.size(); counter++){
@@ -206,6 +218,25 @@ public class StudentPortal extends JFrame{
                     con.close();
                 }
         };
+            }catch(Exception e){ System.out.println(e); }        
+        }
+    
+    private void checkEnrollement(int a){
+        try{  
+                Class.forName("com.mysql.cj.jdbc.Driver");  
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+                PreparedStatement Pstatement=con.prepareStatement("SELECT Branch FROM BranchData WHERE id = ?");
+                Pstatement.setInt(1, a);
+                ResultSet rs = Pstatement.executeQuery();
+                ResultSetMetaData rsmd = rs.getMetaData();
+                while (rs.next()) {
+                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                        enrollList.add(rs.getString(i));
+                    }
+                };
+                Pstatement.close();
+                con.close();                                     
+
             }catch(Exception e){ System.out.println(e); }        
         }
 

@@ -1,9 +1,12 @@
 package Frames;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 
 public class BatchForm  extends JFrame{
+    static int StudentID = 0;
     public BatchForm(int ID){
+        StudentID = ID;
         setTitle("Branch Form");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1280, 750);
@@ -34,10 +37,10 @@ public class BatchForm  extends JFrame{
         JLabel alertText = new JLabel("Alert! Enter all Field Correctly!",JLabel.CENTER);
 
 
-        String city[] = { "IT", "Computer Science", "Electronics", "Civil", "Mechanical" };
+        String branchArr[] = { "IT", "Computer Science", "Electronics", "Civil", "Mechanical" };
         String year[] = { "FE", "SE", "TE", "BE"};
         String couStr[] = { "BTech" };
-        JComboBox<String> branchField = new JComboBox<>(city);
+        JComboBox<String> branchField = new JComboBox<>(branchArr);
         JComboBox<String> AYField = new JComboBox<>(year);
         JComboBox<String>  CouField = new JComboBox<>(couStr);
         JTextField PIField = new JTextField();
@@ -67,6 +70,7 @@ public class BatchForm  extends JFrame{
 
 
         //style
+        alertText.setVisible(false);
 
         alertText.setFont(new Font("Serif", Font.PLAIN, 15));
         alertText.setForeground(Color.red);
@@ -105,10 +109,41 @@ public class BatchForm  extends JFrame{
 
         subBut.addActionListener(e ->
         {
+
+            String CourseText = CouField.getSelectedItem().toString();
+            String paymentID = PIField.getText();
+            String Branch = branchField.getSelectedItem().toString();
+            String Year = AYField.getSelectedItem().toString();
+            if (PIField.getText().isEmpty()) {
+                alertText.setVisible(true);
+            }else{
+            storeData(CourseText, paymentID, Branch, Year);
             new StudentPortal(ID);
             setVisible(false);
+            };
             //rg.setVisible(true);
         });
 
     }
+
+    private void storeData(String Course, String paymentID, String Branch, String Year)//Store Data To Mysql
+    {
+     try{
+        String insertSQL ="insert into BranchData (id, Course, paymentID, Branch, Year) values(?,?,?,?,?)" ;
+        Class.forName("com.mysql.cj.jdbc.Driver");  
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        PreparedStatement Pstatement=con.prepareStatement(insertSQL);
+        //code
+        Pstatement.setInt(1,StudentID);
+        Pstatement.setString(2,Course);
+        Pstatement.setString(3,paymentID);
+        Pstatement.setString(4,Branch);
+        Pstatement.setString(5,Year);
+        Pstatement.executeUpdate();
+        JOptionPane.showMessageDialog(null,"Data Registered Successfully");
+        Pstatement.close();
+        con.close();
+    }catch(Exception e){ System.out.println(e);}        
+    }
+
 }

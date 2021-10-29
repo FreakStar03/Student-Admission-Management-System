@@ -94,9 +94,11 @@ public class RegFrame extends JFrame{
             //System.out.println(CmyPass + " = " + myPass);
             if(myPass.equals(CmyPass)){
                 SubmitForm(name.getText(), email.getText(), myPass);
-                StudentPortal rg = new StudentPortal();
+                int id = getStudentId(email.getText(), myPass);
+                System.out.println(id);
+                new StudentPortal(id);
                 setVisible(false);
-                rg.setVisible(true);
+                //rg.setVisible(true);
                  
              }else{
                 //JOptionPane.showMessageDialog(null,"password did not match");
@@ -127,5 +129,30 @@ public class RegFrame extends JFrame{
         con.close();
         }catch(Exception e){ System.out.println(e);}        
    }
+
+   public int getStudentId(String email, String pw)
+   {
+    try{  
+        Class.forName("com.mysql.cj.jdbc.Driver");  
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        PreparedStatement Pstatement=con.prepareStatement("Select * from studentReg where email=? and password=?");
+        Pstatement.setString(1,email);
+        Pstatement.setString(2,pw);
+        ResultSet rs = Pstatement.executeQuery();
+        if (rs.next()) {
+           int r = rs.getInt(1);
+           dispose();
+           Pstatement.close();
+           con.close();
+           return r;
+       } else {
+           JOptionPane.showMessageDialog(null, "Wrong Username & Password");
+           Pstatement.close();
+           con.close();
+           return 0;
+       }
+        }catch(Exception e){ System.out.println(e);return 0;}        
+   }
+
 
 }
