@@ -1,4 +1,4 @@
-[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://github.com/FreakStar03/Student-Admission-Management-System)
 ## Student Registration Portal System
 Java Mini Project `BE`-`Second Year`  
 Build with Java Swing and ❤️
