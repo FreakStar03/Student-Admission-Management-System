@@ -1,13 +1,35 @@
 package Frames;
 
+//import javax.security.auth.Subject;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.filechooser.*;
+import javax.swing.text.NumberFormatter;
+
+import java.sql.*;
+import java.text.NumberFormat;
+
+import LibExtra.JTextFieldLimit;
+
+import java.io.*;
+import java.nio.file.*;
+import javax.swing.filechooser.*;
+
 
 public class addmissionForm extends JFrame {
+    static ArrayList<String> List= new ArrayList<String>();
+    static int StudentID;
+    static String sscCerti;
+    static String hscCerti;
+    static String mhcetCerti;
+    static String jeeCerti;
     public addmissionForm(int ID) {
+        StudentID = ID;
+
         setTitle("Addmission Form");
         setDefaultCloseOperation(EXIT_ON_CLOSE);// close java prog on close of window
-        setSize(1100, 720);// window size
+        setSize(1280, 720);// window size
         setLayout(null);// layout to null for window
         setLocationRelativeTo(null);// start window in center on monitor
         setResizable(false);// avoid window scaling
@@ -19,220 +41,278 @@ public class addmissionForm extends JFrame {
         add(panel);
         panel.setSize(1280, 720);
 
-        // setContentPane(panel);
-
+        //Component 
         JLabel title = new JLabel("Qualification Details", JLabel.CENTER);
-        JLabel q = new JLabel("Qualification");
-        JLabel mo = new JLabel("Marks Obtained");
-        JLabel mou = new JLabel("Marks Out Of");
-       // JLabel per = new JLabel("Percentage");
-        JLabel phy = new JLabel("HSC PHYSICS MKS");
-        JLabel mat = new JLabel("HSC MATHS MKS");
-        JLabel chm = new JLabel("HSC CHEMISTRY MKS");
-        JLabel bio = new JLabel("HSC BIOLOGY MKS");
-        JLabel eng = new JLabel("HSC ENGLISH MKS");
-        JLabel agg = new JLabel("HSC AGGREGATE MKS");
+        JLabel subtitle = new JLabel("Academics details", JLabel.CENTER);
 
-        JLabel m1 = new JLabel("100");
-        JLabel m2 = new JLabel("100");
-        JLabel m3 = new JLabel("100");
-        JLabel m4 = new JLabel("100");
-        JLabel m5 = new JLabel("100");
-        JLabel m6 = new JLabel("650");
+        JLabel sscText = new JLabel("SSC Percentage:" );
+        JLabel hscText = new JLabel("HSC Percentage:");
+        JLabel mhText = new JLabel("Mhcet Percentile:");
+        JLabel jeeText = new JLabel("JEE Percentile:");
 
-        JLabel cet = new JLabel("MHT-CET  Percentile Score:-");
-        JLabel apn = new JLabel("APPLICATION NUMBER");
-        // JLabel mphy = new JLabel("PHYSICS");
-        // JLabel mmat = new JLabel("MATHS");
-        JLabel mrn = new JLabel("TOTAL Percentile");
-        // JLabel mchm = new JLabel("CHEMISTRY");
-       // JLabel mt = new JLabel("TOTAL Percentile");
+        JLabel outof1 = new JLabel(" /100%");
+        JLabel outof2 = new JLabel(" /100%");
+        JLabel outof3 = new JLabel(" /100%");
+        JLabel outof4 = new JLabel(" /100%");
 
-        JLabel jee = new JLabel("JEE Main Percentile Score:-");
-        JLabel jap = new JLabel("Appeared for JEE");
-        JLabel jrn = new JLabel("ROLL Number");
-        // JLabel jp = new JLabel("PHYSICS");
-        // JLabel jc = new JLabel("CHEMISTRY");
-        // JLabel jm = new JLabel("MATHS");
-        //JLabel jtot = new JLabel("TOTAL Percentile");
+        JLabel alerttext = new JLabel("Alert: Check all values.", JLabel.CENTER);
 
-        // object calling
-        // JLabel up=new JLabel("User Profile");
+        JTextField ssc = new JTextField();
+        JTextField hsc = new JTextField();
+        JTextField mhcet = new JTextField();
+        JTextField jee = new JTextField();
 
-        // object adding
-        // panel.add(up);
-        // obj setbounds
-        // up.setBounds (65, 108, 232, 35);
+        ssc.setDocument(new JTextFieldLimit(3));
+        hsc.setDocument(new JTextFieldLimit(3));
+        mhcet.setDocument(new JTextFieldLimit(3));
+        jee.setDocument(new JTextFieldLimit(3));
 
-        JTextField hmm = new JTextField(3);
-        //JTextField hmm1 = new JTextField(3);
-        JTextField hcm = new JTextField(3);
-        //JTextField hcm1 = new JTextField(3);
-        JTextField hbm = new JTextField(3);
-        //JTextField hbm1 = new JTextField(3);
-        JTextField hpm = new JTextField(3);
-        //JTextField hpm1 = new JTextField(3);
-        JTextField hem = new JTextField(3);
-        //JTextField hem1 = new JTextField(3);
-        JTextField ham = new JTextField(3);
-        //JTextField ham1 = new JTextField(3);
-        JTextField apn1 = new JTextField(3);
-        JTextField mphy1 = new JTextField(3);
-        JTextField mmat1 = new JTextField(3);
-        JTextField mrn1 = new JTextField(3);
-        JTextField mchm1 = new JTextField(3);
-        JTextField mt1 = new JTextField(3);
 
-        JTextField jtot1 = new JTextField(3);
-        JTextField jap1 = new JTextField(3);
-        JTextField jrn1 = new JTextField(3);
-        JTextField jp1 = new JTextField(3);
-        JTextField jc1 = new JTextField(3);
-        JTextField jm1 = new JTextField(3);
-        JButton SUBMIT = new JButton("SUBMIT");
+        JButton subssc =  new JButton("SSC Certificate");
+        JButton subhsc =  new JButton("HSC Certificate");
+        JButton submh =  new JButton("MHCET Certificate");
+        JButton subjee =  new JButton("JEE Certificate");
 
-        // add components;
+        JButton submit =  new JButton("Submit");
+
+
+        //add
         panel.add(title);
-        panel.add(q);
-        panel.add(mo);
-        panel.add(mou);
-        //panel.add(per);
-        panel.add(phy);
-        panel.add(mat);
-        panel.add(chm);
-        panel.add(bio);
-        panel.add(eng);
-        panel.add(agg);
-        panel.add(hpm);
-        //panel.add(hpm1);
-        panel.add(hmm);
-        //panel.add(hmm1);
-        panel.add(hcm);
-        //panel.add(hcm1);
-        panel.add(hbm);
-        //panel.add(hbm1);
-        panel.add(hem);
-        //panel.add(hem1);
-        panel.add(ham);
-        //panel.add(ham1);
-        panel.add(m1);
-        panel.add(m2);
-        panel.add(m3);
-        panel.add(m4);
-        panel.add(m5);
-        panel.add(m6);
-        panel.add(cet);
-        panel.add(apn);
-        panel.add(apn1);
-        //panel.add(mphy);
-        panel.add(mphy1);
-        panel.add(mmat1);
-        panel.add(mrn);
-        panel.add(mrn1);
-   
-        panel.add(mchm1);
+        panel.add(subtitle);
+        panel.add(sscText);
+        panel.add(hscText);
+        panel.add(mhText);
+        panel.add(jeeText);
 
-        panel.add(mt1);
+        panel.add(outof1);
+        panel.add(outof2);
+        panel.add(outof3);
+        panel.add(outof4);
 
+        panel.add(subssc);
+        panel.add(subhsc);
+        panel.add(subjee);
+        panel.add(submh);
+
+        panel.add(ssc);
+        panel.add(hsc);
+        panel.add(mhcet);
         panel.add(jee);
-        panel.add(jap);
-        panel.add(jap1);
-        panel.add(jrn);
-        panel.add(jrn1);
 
-        panel.add(jp1);
+        panel.add(alerttext);
 
-        panel.add(jc1);
-    
-        panel.add(jm1);
-        //panel.add(jtot);
-        panel.add(jtot1);
+        panel.add(submit);
 
-        panel.add(SUBMIT);
 
-        // set component bounds (only needed by Absolute Positioning);
-        title.setBounds(0, 0, 1100, 91);// 314,0,640,91
-        q.setBounds(99, 116, 215, 41);// 170, 100, 100, 25
-        mo.setBounds(345, 128, 173, 41);
-        mou.setBounds(548, 127, 173, 41);
-        //per.setBounds(721, 126, 173, 41);
-        phy.setBounds(175, 169, 139, 19);
-        mat.setBounds(175, 200, 146, 19);
-        chm.setBounds(175, 231, 146, 19);
-        bio.setBounds(175, 264, 146, 19);
-        eng.setBounds(175, 295, 146, 19);
-        agg.setBounds(175, 324, 146, 19);
-        hpm.setBounds(345, 169, 158, 19);
-        //hpm1.setBounds(704, 167, 158, 19);
-        hmm.setBounds(345, 200, 158, 19);
-        //hmm1.setBounds(704, 205, 158, 19);
-        hcm.setBounds(345, 233, 158, 19);
-        //hcm1.setBounds(704, 236, 158, 19);
-        hbm.setBounds(345, 264, 158, 19);
-        //hbm1.setBounds(704, 266, 158, 19);
-        hem.setBounds(345, 291, 158, 19);
-        //hem1.setBounds(704, 295, 158, 19);
-        ham.setBounds(345, 324, 158, 19);
-        //ham1.setBounds(704, 324, 158, 19);
-        m1.setBounds(565, 167, 139, 19);
-        m2.setBounds(565, 199, 139, 19);
-        m3.setBounds(565, 230, 139, 19);
-        m4.setBounds(565, 264, 139, 19);
-        m5.setBounds(565, 289, 139, 19);
-        m6.setBounds(565, 324, 139, 19);
-        cet.setBounds(90, 368, 328, 32);
-        apn.setBounds(166, 409, 179, 30);
-        apn1.setBounds(345, 406, 158, 19);
-        mrn.setBounds(565, 406, 179, 30);
-        mrn1.setBounds(704, 400, 158, 19);
-       // mphy.setBounds(166, 444, 179, 30);
-        mphy1.setBounds(345, 444, 158, 19);
 
-        //mchm.setBounds(565, 449, 179, 30);
-        mchm1.setBounds(704, 444, 158, 19);
-        //mmat.setBounds(166, 486, 179, 30);
-        mmat1.setBounds(345, 480, 158, 19);
-       // mt.setBounds(565, 486, 179, 30);
-        mt1.setBounds(704, 480, 158, 19);
+        //setPos
+        title.setBounds(0,0,1280,90);
+        subtitle.setBounds(251,159,288,46);
 
-        jee.setBounds(90, 530, 328, 32);
-        jap.setBounds(166, 567, 179, 30);
-        jap1.setBounds(345, 563, 158, 19);
+        sscText.setBounds(338,236,187,44);
+        hscText.setBounds(338,305,187,44);
+        mhText.setBounds(338,374,187,44);
+        jeeText.setBounds(338,443,187,44);
 
-        jrn.setBounds(566, 567, 179, 30);
-        jrn1.setBounds(704, 567, 158, 19);
+        outof1.setBounds(709,305,67,44);
+        outof2.setBounds(709,236,67,44);
+        outof3.setBounds(709,374,67,44);
+        outof4.setBounds(709,443,67,44);
 
-        //jp.setBounds(166, 599, 179, 30);
-        jp1.setBounds(345, 593, 158, 19);
+        ssc.setBounds(525,236,163,44);
+        hsc.setBounds(525,305,163,44);
+        mhcet.setBounds(525,374,163,44);
+        jee.setBounds(525,443,163,44);
 
-        //jc.setBounds(566, 597, 179, 30);
-        jc1.setBounds(704, 600, 158, 19);
+        subssc.setBounds(865,236,163,44);
+        subhsc.setBounds(865,305,163,44);
+        submh.setBounds(865,374,163,44);
+        subjee.setBounds(865,443,163,44);
 
-        //jm.setBounds(166, 634, 179, 30);
-        jm1.setBounds(345, 632, 158, 19);
-
-        //jtot.setBounds(566, 634, 179, 30);
-        jtot1.setBounds(704, 631, 158, 19);
-
-        SUBMIT.setBounds(900, 623, 173, 41);
+        alerttext.setBounds(399,575,481,21);
+        
+        submit.setBounds(510,605,260,53);
 
         // STYLing
-
-        // COurier Arial Serif
-        title.setFont(new Font("Courier", Font.ITALIC, 40));
-        title.setOpaque(true);
-        title.setBackground(Color.lightGray);
-        title.setForeground(Color.white);
-        panel.setBackground(Color.decode("#EDE3E3"));
-
+        title.setFont(new Font("Serif", Font.PLAIN, 30));
+        subtitle.setFont(new Font("Serif", Font.PLAIN, 20));
+        alerttext.setFont(new Font("Serif", Font.PLAIN, 15));
+        alerttext.setForeground(Color.red);
+        alerttext.setVisible(false);
         setVisible(true);
 
+
         //logic
-        SUBMIT.addActionListener(e ->
+        submit.addActionListener(e ->
         {
-            new StudentPortal(ID);
-            setVisible(false);
-            //rg.setVisible(true);
+            if ( mhcet.getText().isEmpty() == false && jee.getText().isEmpty() == false && ssc.getText().isEmpty() && hsc.getText().isEmpty()) {
+            List.clear(); //empty lists
+            List.add(ssc.getText());
+            List.add(hsc.getText());
+            List.add(mhcet.getText());
+            List.add(jee.getText());
+            List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"scc_certificate.png");
+            List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"hcc_certificate.png");
+            List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"mhcet_certificate.png");
+            List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"jee_certificate.png");
+            EligibilityChecker();
+            //List.add(jee.getText());
+
+                int a = storeData(List);//calling Event
+                if (a == 1) {//Check For Mysql Exceptions
+                    new StudentPortal(ID);
+                    setVisible(false); 
+                }else{
+                    alerttext.setVisible(true);
+                }  
+                
+            }else {alerttext.setVisible(true); }
         });
+
+        subssc.addActionListener(e -> {
+            JFileChooserOpener("ssc");
+        });
+        subhsc.addActionListener(e -> {
+            JFileChooserOpener("hsc");
+        });
+        submh.addActionListener(e -> {
+            JFileChooserOpener("mhcet");
+        });
+        subjee.addActionListener(e -> {
+            JFileChooserOpener("jee");
+        });
+
+        ArrayList<JTextField> object = new ArrayList<JTextField>();
+        object.add(ssc);
+        object.add(hsc);
+        object.add(mhcet);
+        object.add(jee);
+
+        for (JTextField obj: object) {
+            obj.addKeyListener(new java.awt.event.KeyAdapter() {
+
+                public void keyReleased(java.awt.event.KeyEvent evt) {
+                    try {
+                        long number = Long.parseLong(obj.getText());
+                        if (number > 100) {
+                            JOptionPane.showMessageDialog(rootPane, "Below 100%");
+                            obj.setText("");
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(rootPane, "Only Numbers Allowed");
+                        obj.setText("");
+                    }
+                }
+            });
+        }
+
+
+    }
+
+    private int storeData(ArrayList<String> arr)//Store Data To Mysql
+    {
+     try{
+        String insertSQL ="insert into RegistrationData (id, SSC, HSC, MHCET, JEE, sscCert, hscCert,mhCert, jeeCert, eligible) values(?,?,?,?,?,?,?,?,?,?)" ;
+        Class.forName("com.mysql.cj.jdbc.Driver");  
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        PreparedStatement Pstatement=con.prepareStatement(insertSQL);
+        //code
+        Pstatement.setInt(1,StudentID);
+        for(int i = 0; i< List.size(); i++){
+            int x = i + 2;
+            if (x >= List.size()) {
+                x = i +2 ;
+            }
+            Pstatement.setString(x, List.get(i));
+        };
+        Pstatement.executeUpdate();
+        JOptionPane.showMessageDialog(null,"Data Registered Successfully");
+        Pstatement.close();
+        con.close();
+        fileCopy(System.getProperty("user.dir") + List.get(4), sscCerti);
+        fileCopy(System.getProperty("user.dir") + List.get(5), hscCerti);
+        fileCopy(System.getProperty("user.dir") + List.get(6), mhcetCerti);
+        fileCopy(System.getProperty("user.dir") + List.get(7), jeeCerti);
+        List.clear();
+        return 1;
+        }catch(Exception e){ System.out.println(e); return 0;}        
+    }
+
+    private void JFileChooserOpener(String caller){//Select File to Copy and Create Dir
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setDialogTitle("Select an image");
+        jfc.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG and GIF images", "png", "gif");
+        jfc.addChoosableFileFilter(filter);
+        int returnValue = jfc.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            System.out.println(jfc.getSelectedFile().getPath());
+        };
+        String dir = System.getProperty("user.dir") +  "/Storage/"+ StudentID + "/";
+        try {
+            Files.createDirectories(Paths.get(dir));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        if(jfc.getSelectedFile() != null){
+            if (caller == "ssc") {
+                sscCerti = jfc.getSelectedFile().getPath();
+            } else if(caller == "hsc") {
+                hscCerti = jfc.getSelectedFile().getPath();
+            } else if(caller == "mhcet") {
+                mhcetCerti = jfc.getSelectedFile().getPath();
+            } else if(caller == "jee") {
+                jeeCerti = jfc.getSelectedFile().getPath();
+            }
+        }
+    }
+    
+    private void EligibilityChecker(){//check student Eligibilty from marks
+        String ssc = List.get(0);
+        String hsc = List.get(1);
+        String mhcet = List.get(2);
+        String jee = List.get(3);
+ 
+        if (Integer.parseInt(ssc) > 60 && Integer.parseInt(hsc) > 60) {
+            if (Integer.parseInt(mhcet) > 60 || Integer.parseInt(jee) > 60) {
+                List.add(8,"yes");
+            }else{
+                List.add(8,"no");
+            }
+        }else {
+            List.add(8,"no");
+        }        
+        
+    } 
+
+    private void fileCopy(String currentPath,String targetLocation  ){//Copy FIle to Storage/StudentID
+        File currentFile  = new File(currentPath);
+        File targetFile  = new File(targetLocation);  
+        FileOutputStream fileOutputStream = null; 
+        FileInputStream fileInputStream = null;
+        try {
+         fileOutputStream = new FileOutputStream(currentFile);
+         fileInputStream = new FileInputStream(targetFile);
+         byte[] buffer = new byte[4096];
+         int read;
+         while ((read = fileInputStream.read(buffer)) != -1) {
+          fileOutputStream.write(buffer, 0, read);
+         }
+        } catch(IOException e) {
+         try {
+          e.printStackTrace();
+          if (fileInputStream != null) {
+           fileInputStream.close();     
+          }
+          if (fileOutputStream != null) {
+           fileOutputStream.flush(); 
+           fileOutputStream.close();
+          }
+         }
+         catch (IOException e1) {
+          e1.printStackTrace();
+         }
+        }
     }
 }
+
