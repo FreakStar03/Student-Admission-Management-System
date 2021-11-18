@@ -201,19 +201,23 @@ public class StudentPortal extends JFrame{
 
     private void CheckForms(int a){
         try{  
-            ArrayList<String> list = new ArrayList<>(Arrays.asList("PersonalData"));
+            ArrayList<String> list = new ArrayList<>(Arrays.asList("PersonalData", "RegistrationData"));
             for(int counter = 0; counter < list.size(); counter++){
                 Class.forName("com.mysql.cj.jdbc.Driver");  
                 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
-                PreparedStatement Pstatement=con.prepareStatement("SELECT * FROM PersonalData WHERE id = ?");
+                PreparedStatement Pstatement=con.prepareStatement("SELECT * FROM "+ list.get(counter) + " WHERE id = ?");
                 Pstatement.setInt(1, a);
                 ResultSet rs = Pstatement.executeQuery();
                 if (rs.next()) {
                     if(list.get(counter) == "PersonalData") Pbtn = true ;
+                    if(list.get(counter) == "RegistrationData") Rbtn = true ;
+                    System.out.println(" Reg Exist");
                     Pstatement.close();
                     con.close();
                 } else {
                     if(list.get(counter) == "PersonalData") Pbtn = false ;
+                    if(list.get(counter) == "RegistrationData") Rbtn = false ;
+                    System.out.println("no Reg");
                     Pstatement.close();
                     con.close();
                 }

@@ -81,7 +81,7 @@ public class AdminPortal extends JFrame{
         bg.setBounds(19,170,1241,520);
 
          String[] columnNames = { "PdID", "id", "firstname", "middlename", "lastname", "phoneno1", "phoneno2",
-               "address", "email", "dob", "city", "state", "pincode", "photoAddress", "IdAddress","Bid" ,"id" , "Course", "PaymentID", "Branch", "Year" };
+               "address", "email", "dob", "city", "state", "pincode", "photoAddress", "IdAddress","Bid" ,"id" , "Course", "PaymentID", "Branch", "Year" , "Rid", "id", "SSC", "HSC", "MHCET", "JEE", "sscCert", "hscCert", "mhCert", "jeeCert", "eligible"};
          DefaultTableModel tableModel = new DefaultTableModel(my_db_select(), columnNames);
 
 
@@ -188,10 +188,10 @@ public class AdminPortal extends JFrame{
            Statement st=con.createStatement();
            ResultSet rs;
            if (branchSort != "ALL") {
-              rs=st.executeQuery("SELECT a.*, b.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id WHERE CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end);
+              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id WHERE CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end);
            }
            else {
-              rs=st.executeQuery("SELECT a.*, b.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id Where CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end);
+              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id Where CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end);
            }
            ResultSetMetaData rsmd = rs.getMetaData();
            String[][] dataTemp = new String[20][rsmd.getColumnCount()]; // [rows][columns]
