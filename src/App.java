@@ -1,7 +1,7 @@
 import Frames.*;
 class App{
     public static void main(String args[]){
-        LoginFormS StartFrame = new LoginFormS();
+        addmissionForm StartFrame = new addmissionForm(4);
         StartFrame.setVisible(true);
     }
 }

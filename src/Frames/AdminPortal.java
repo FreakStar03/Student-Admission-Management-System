@@ -5,10 +5,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.sql.*;
+import java.awt.event.*;
+
  import javax.swing.table.DefaultTableModel;
 public class AdminPortal extends JFrame{
     static int Tstart = 0; 
     static int Tend = 20; 
+    static String MbranchSort = "ALL";
+    static String SearchData = "%%";
 
 
     public AdminPortal(){
@@ -40,7 +44,7 @@ public class AdminPortal extends JFrame{
         JLabel SB = new JLabel("Sort By:", JLabel.CENTER); 
         JTextField BranchField = new JTextField(); 
         JTextField SearchField = new JTextField();
-        String sortBy[] = { "Alphabetical", "By ID", "Date" };
+        String sortBy[] = {"ALL", "CS", "IT", "EXTC", "MECH" };
         JComboBox<String> SBField = new JComboBox<> (sortBy);
 
         JPanel bg = new JPanel();
@@ -77,32 +81,47 @@ public class AdminPortal extends JFrame{
         bg.setBounds(19,170,1241,520);
 
          String[] columnNames = { "PdID", "id", "firstname", "middlename", "lastname", "phoneno1", "phoneno2",
-               "address", "email", "dob", "city", "state", "pincode", "photoAddress", "IdAddress" };
+               "address", "email", "dob", "city", "state", "pincode", "photoAddress", "IdAddress","Bid" ,"id" , "Course", "PaymentID", "Branch", "Year" };
          DefaultTableModel tableModel = new DefaultTableModel(my_db_select(), columnNames);
 
 
          JPanel tablePanel = new JPanel();
          JTable jt = new JTable(tableModel); // to create a new JTable
          jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-         //jt.setBounds(58,202,1165,460);
          jt.setPreferredScrollableViewportSize(new Dimension(800, 320 ));
          jt.setFillsViewportHeight(true);
-         //jt.setDefaultEditor(Object.class, null);
 
          JScrollPane jps = new JScrollPane(jt);
+        // System.out.println(Tstart);
+         JLabel pageNumber = new JLabel(Integer.toString(Tstart / 20 + 1), JLabel.CENTER);
          JButton prevbtn = new JButton("Prev");
          JButton nextbtn = new JButton("Next");
          tablePanel.setBounds(58,202,1165,457);
          tablePanel.add(jps);
-        //  tablePanel.add(prevbtn);
-        //  tablePanel.add(nextbtn);
+
          prevbtn.setBounds(489,590,137,44);
+         pageNumber.setBounds(600,590,137,44);
          nextbtn.setBounds(710,590,137,44);
          pane.add(prevbtn);
+         pane.add(pageNumber);
          pane.add(nextbtn);
          pane.add(tablePanel);
          pane.add(bg);
-         //setBounds(54,202,1165,460);
+
+         SBField.setSelectedItem(MbranchSort);
+         SBField.addItemListener(event -> {
+            // The item affected by the event.
+            String item = (String) event.getItem();
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                MbranchSort = item;
+                AdminPortal main = new AdminPortal();
+                main.setVisible(true);
+                dispose();
+            };
+            // if (event.getStateChange() == ItemEvent.DESELECTED) {
+            //    System.out.println("DS:" + item);
+            // }
+        });
 
          prevbtn.addActionListener(e -> {
             if (Tstart == 0 && Tend == 20) {
@@ -119,14 +138,34 @@ public class AdminPortal extends JFrame{
             }
          });
          nextbtn.addActionListener(e -> {
+
             Tstart += 20;
             Tend += 20;
             AdminPortal main = new AdminPortal();
             main.setVisible(true);
-            // setVisible(false);
             dispose();
-
          });
+
+         SearchField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   
+                   if (SearchField.getText().isEmpty() == false) {
+                     SearchData = "%" + SearchField.getText() + "%";
+                     AdminPortal main = new AdminPortal();
+                     main.setVisible(true);
+                     dispose();
+                  }
+
+                }
+            }
+    
+        });
+    
+
+
+
         Logout.addMouseListener(new MouseAdapter()   {   
             public void mouseClicked(MouseEvent e)   
             { 
@@ -142,11 +181,18 @@ public class AdminPortal extends JFrame{
         String[][] data ={ }  ;
         int start = Tstart;
         int end = Tend;
+        String branchSort = MbranchSort ;
         try{  
            Class.forName("com.mysql.cj.jdbc.Driver");  
            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
            Statement st=con.createStatement();
-           ResultSet rs=st.executeQuery("SELECT * FROM PersonalData LIMIT " + start + "," + end);
+           ResultSet rs;
+           if (branchSort != "ALL") {
+              rs=st.executeQuery("SELECT a.*, b.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id WHERE CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end);
+           }
+           else {
+              rs=st.executeQuery("SELECT a.*, b.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id Where CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end);
+           }
            ResultSetMetaData rsmd = rs.getMetaData();
            String[][] dataTemp = new String[20][rsmd.getColumnCount()]; // [rows][columns]
            data = dataTemp;  
@@ -163,10 +209,9 @@ public class AdminPortal extends JFrame{
            }
         con.close();  
      }catch(Exception e){ System.out.println(e);} 
-  
      return data;
         }
-}
+};
 
 
 
