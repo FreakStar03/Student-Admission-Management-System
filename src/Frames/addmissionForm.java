@@ -139,7 +139,7 @@ public class addmissionForm extends JFrame {
         //logic
         submit.addActionListener(e ->
         {
-            if ( mhcet.getText().isEmpty() == false && jee.getText().isEmpty() == false && ssc.getText().isEmpty() && hsc.getText().isEmpty()) {
+            if ( mhcet.getText().isEmpty() == false && jee.getText().isEmpty() == false && ssc.getText().isEmpty() == false && hsc.getText().isEmpty() == false) {
             List.clear(); //empty lists
             List.add(ssc.getText());
             List.add(hsc.getText());
@@ -157,7 +157,8 @@ public class addmissionForm extends JFrame {
                     new StudentPortal(ID);
                     setVisible(false); 
                 }else{
-                    alerttext.setVisible(true);
+                    new StudentPortal(ID);
+                    setVisible(false); 
                 }  
                 
             }else {alerttext.setVisible(true); }

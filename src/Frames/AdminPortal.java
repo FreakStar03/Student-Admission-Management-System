@@ -12,6 +12,7 @@ public class AdminPortal extends JFrame{
     static int Tstart = 0; 
     static int Tend = 20; 
     static String MbranchSort = "ALL";
+    static String MEligibleSort = "yes";
     static String SearchData = "%%";
 
 
@@ -39,10 +40,11 @@ public class AdminPortal extends JFrame{
         JLabel title = new JLabel("A P Shah Institude Of Technology", JLabel.CENTER); 
         JLabel subTitle = new JLabel("Admin Panel", JLabel.CENTER); 
         JLabel Logout = new JLabel("Logout", JLabel.CENTER); 
-        JLabel Branch = new JLabel("Branch:", JLabel.CENTER); 
+        JLabel Branch = new JLabel("Eligible Only:", JLabel.CENTER); 
         JLabel Search = new JLabel("Search:", JLabel.CENTER); 
         JLabel SB = new JLabel("Sort By:", JLabel.CENTER); 
-        JTextField BranchField = new JTextField(); 
+        String conditionYN[] = {"yes", "no"};        
+        JComboBox<String> EligibleDropDown = new JComboBox<> (conditionYN); 
         JTextField SearchField = new JTextField();
         String sortBy[] = {"ALL", "CS", "IT", "EXTC", "MECH" };
         JComboBox<String> SBField = new JComboBox<> (sortBy);
@@ -56,7 +58,7 @@ public class AdminPortal extends JFrame{
         pane.add(Branch);
         pane.add(Search);
         pane.add(SB);
-        pane.add(BranchField);
+        pane.add(EligibleDropDown);
         pane.add(SearchField);
         pane.add(SBField);
 
@@ -75,7 +77,7 @@ public class AdminPortal extends JFrame{
         Branch.setBounds(0,111,153,40);
         Search.setBounds(400,111,140,40);
         SB.setBounds(955,111,134,40);
-        BranchField.setBounds(153,111,190,35);
+        EligibleDropDown.setBounds(153,111,190,35);
         SearchField.setBounds(540,111,340,35);
         SBField.setBounds(1089,111,148,35);
         bg.setBounds(19,170,1241,520);
@@ -118,10 +120,23 @@ public class AdminPortal extends JFrame{
                 main.setVisible(true);
                 dispose();
             };
-            // if (event.getStateChange() == ItemEvent.DESELECTED) {
-            //    System.out.println("DS:" + item);
-            // }
         });
+
+        EligibleDropDown.setSelectedItem(MEligibleSort);
+        EligibleDropDown.addItemListener(event -> {
+           // The item affected by the event.
+           String item = (String) event.getItem();
+           if (event.getStateChange() == ItemEvent.SELECTED) {
+               MEligibleSort = item;
+               AdminPortal main = new AdminPortal();
+               main.setVisible(true);
+               dispose();
+           };
+           // if (event.getStateChange() == ItemEvent.DESELECTED) {
+           //    System.out.println("DS:" + item);
+           // }
+       });
+        
 
          prevbtn.addActionListener(e -> {
             if (Tstart == 0 && Tend == 20) {
@@ -146,13 +161,19 @@ public class AdminPortal extends JFrame{
             dispose();
          });
 
-         SearchField.addKeyListener(new KeyAdapter() {
+         SearchField.addKeyListener(new KeyAdapter() {//Search on Enter CODE
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
                    
                    if (SearchField.getText().isEmpty() == false) {
                      SearchData = "%" + SearchField.getText() + "%";
+                     AdminPortal main = new AdminPortal();
+                     main.setVisible(true);
+                     dispose();
+                  }
+                  else {
+                     SearchData = "%%";
                      AdminPortal main = new AdminPortal();
                      main.setVisible(true);
                      dispose();
@@ -188,10 +209,10 @@ public class AdminPortal extends JFrame{
            Statement st=con.createStatement();
            ResultSet rs;
            if (branchSort != "ALL") {
-              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id WHERE CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end);
+              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id WHERE c.eligible = '" + MEligibleSort+ "' AND CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end);
            }
            else {
-              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id Where CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end);
+              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id Where c.eligible = '" + MEligibleSort+ "' AND CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end);
            }
            ResultSetMetaData rsmd = rs.getMetaData();
            String[][] dataTemp = new String[20][rsmd.getColumnCount()]; // [rows][columns]
