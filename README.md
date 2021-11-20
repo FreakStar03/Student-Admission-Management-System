@@ -6,4 +6,5 @@ Build with Java Swing and ❤️
   Just run Main.java in Src Folder!
 #### Dependency Management
   - Java Oracle JDK 16
+  - For database and table run template.sql in your server (i.e. php my admin)
 
