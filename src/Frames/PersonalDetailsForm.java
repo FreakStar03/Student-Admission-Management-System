@@ -10,6 +10,8 @@ import java.sql.*;
 import org.jdatepicker.impl.*;
 import LibExtra.DateLabelFormatter;
 
+import sql.conn;
+
 public class PersonalDetailsForm extends JFrame {
     static int StudentID;
     static ArrayList<String> List= new ArrayList<String>();
@@ -217,7 +219,7 @@ public class PersonalDetailsForm extends JFrame {
      try{
         String insertSQL ="insert into PersonalData (id, firstname,middlename, lastname, phoneno1, phoneno2, address, email,dob, city, state,pincode, photoAddress, IdAddress) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)" ;
         Class.forName("com.mysql.cj.jdbc.Driver");  
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
         PreparedStatement Pstatement=con.prepareStatement(insertSQL);
         //code
         Pstatement.setInt(1,StudentID);

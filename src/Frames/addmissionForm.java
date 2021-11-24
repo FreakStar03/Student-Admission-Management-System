@@ -10,6 +10,8 @@ import LibExtra.JTextFieldLimit;
 import java.io.*;
 import java.nio.file.*;
 
+import sql.conn;
+
 
 public class addmissionForm extends JFrame {
     static ArrayList<String> List= new ArrayList<String>();
@@ -209,7 +211,7 @@ public class addmissionForm extends JFrame {
      try{
         String insertSQL ="insert into RegistrationData (id, SSC, HSC, MHCET, JEE, sscCert, hscCert,mhCert, jeeCert, eligible) values(?,?,?,?,?,?,?,?,?,?)" ;
         Class.forName("com.mysql.cj.jdbc.Driver");  
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
         PreparedStatement Pstatement=con.prepareStatement(insertSQL);
         //code
         Pstatement.setInt(1,StudentID);

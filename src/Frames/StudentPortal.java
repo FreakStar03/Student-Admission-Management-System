@@ -5,6 +5,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import sql.conn;
+
 public class StudentPortal extends JFrame{
     public boolean isLogout = false;
     static int StudentID;
@@ -228,7 +230,7 @@ public class StudentPortal extends JFrame{
     private void checkEnrollement(int a){
         try{  
                 Class.forName("com.mysql.cj.jdbc.Driver");  
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+                Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
                 PreparedStatement Pstatement=con.prepareStatement("SELECT Branch FROM BranchData WHERE id = ?");
                 Pstatement.setInt(1, a);
                 ResultSet rs = Pstatement.executeQuery();

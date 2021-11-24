@@ -4,6 +4,9 @@ package Frames;
 //import java.awt.*;
 // import java.awt.event.ActionEvent;
 // import java.awt.event.ActionListener;
+
+import sql.conn;
+
 import java.sql.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -137,7 +140,7 @@ public class LoginFormS extends JFrame {
 	{
 	 try{  
 		 Class.forName("com.mysql.cj.jdbc.Driver");  
-		 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+		 Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
 		 PreparedStatement Pstatement=con.prepareStatement("Select * from "+ table +" where email=? and password=?");
 		 Pstatement.setString(1,email);
 		 Pstatement.setString(2,pw);

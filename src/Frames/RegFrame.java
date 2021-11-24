@@ -4,6 +4,7 @@ import java.awt.*;
 import java.sql.*;
 //import java.awt.event.*;
 
+import sql.conn;
 
 public class RegFrame extends JFrame{
     public RegFrame(){
@@ -134,7 +135,7 @@ public class RegFrame extends JFrame{
    {
     try{  
         Class.forName("com.mysql.cj.jdbc.Driver");  
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
         PreparedStatement Pstatement=con.prepareStatement("Select * from studentReg where email=? and password=?");
         Pstatement.setString(1,email);
         Pstatement.setString(2,pw);

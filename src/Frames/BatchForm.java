@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
+import sql.conn;
+
 public class BatchForm  extends JFrame{
     static int StudentID = 0;
     public BatchForm(int ID){
@@ -131,7 +133,7 @@ public class BatchForm  extends JFrame{
      try{
         String insertSQL ="insert into BranchData (id, Course, paymentID, Branch, Year) values(?,?,?,?,?)" ;
         Class.forName("com.mysql.cj.jdbc.Driver");  
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+        Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
         PreparedStatement Pstatement=con.prepareStatement(insertSQL);
         //code
         Pstatement.setInt(1,StudentID);

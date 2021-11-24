@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.sql.*;
 import java.awt.event.*;
 
+import sql.conn;
+
  import javax.swing.table.DefaultTableModel;
 public class AdminPortal extends JFrame{
     static int Tstart = 0; 
@@ -205,7 +207,7 @@ public class AdminPortal extends JFrame{
         String branchSort = MbranchSort ;
         try{  
            Class.forName("com.mysql.cj.jdbc.Driver");  
-           Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
+           Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
            Statement st=con.createStatement();
            ResultSet rs;
            if (branchSort != "ALL") {
