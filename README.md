@@ -7,4 +7,5 @@ Build with Java Swing and ❤️
 #### Dependency Management
   - Java Oracle JDK 16
   - For database and table run template.sql in your server (i.e. php my admin)
+  - Change username and password of DB in .sql/conn file
 
