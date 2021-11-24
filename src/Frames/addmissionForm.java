@@ -1,6 +1,5 @@
 package Frames;
-
-//import javax.security.auth.Subject;
+// IMPORTS 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,17 +8,19 @@ import java.sql.*;
 import LibExtra.JTextFieldLimit;
 import java.io.*;
 import java.nio.file.*;
-
-import sql.conn;
+import sql.conn; //conn file in .sql/conn
 
 
 public class addmissionForm extends JFrame {
+    //Global Variables
     static ArrayList<String> List= new ArrayList<String>();
     static int StudentID;
     static String sscCerti;
     static String hscCerti;
     static String mhcetCerti;
     static String jeeCerti;
+
+    //Constructor
     public addmissionForm(int ID) {
         StudentID = ID;
 
@@ -38,39 +39,32 @@ public class addmissionForm extends JFrame {
         panel.setSize(1280, 720);
 
         //Component 
-        JLabel title = new JLabel("Qualification Details", JLabel.CENTER);
+        JLabel title = new JLabel("Qualification Details", JLabel.CENTER);//labels
         JLabel subtitle = new JLabel("Academics details", JLabel.CENTER);
-
         JLabel sscText = new JLabel("SSC Percentage:" );
         JLabel hscText = new JLabel("HSC Percentage:");
         JLabel mhText = new JLabel("Mhcet Percentile:");
         JLabel jeeText = new JLabel("JEE Percentile:");
-
         JLabel outof1 = new JLabel(" /100%");
         JLabel outof2 = new JLabel(" /100%");
         JLabel outof3 = new JLabel(" /100%");
         JLabel outof4 = new JLabel(" /100%");
-
         JLabel alerttext = new JLabel("Alert: Check all values.", JLabel.CENTER);
-
-        JTextField ssc = new JTextField();
+        JTextField ssc = new JTextField();//textfield
         JTextField hsc = new JTextField();
         JTextField mhcet = new JTextField();
         JTextField jee = new JTextField();
+        JButton subssc =  new JButton("No SSC Certificate" );//buttons
+        JButton subhsc =  new JButton("No HSC Certificate");
+        JButton submh =  new JButton("No MHCET Certificate");
+        JButton subjee =  new JButton("No JEE Certificate");
+        JButton submit =  new JButton("Submit");
 
+        //TextField Input Limit Setter
         ssc.setDocument(new JTextFieldLimit(3));
         hsc.setDocument(new JTextFieldLimit(3));
         mhcet.setDocument(new JTextFieldLimit(3));
         jee.setDocument(new JTextFieldLimit(3));
-
-
-        JButton subssc =  new JButton("No SSC Certificate" );
-        JButton subhsc =  new JButton("No HSC Certificate");
-        JButton submh =  new JButton("No MHCET Certificate");
-        JButton subjee =  new JButton("No JEE Certificate");
-
-        JButton submit =  new JButton("Submit");
-
 
         //add
         panel.add(title);
@@ -79,54 +73,41 @@ public class addmissionForm extends JFrame {
         panel.add(hscText);
         panel.add(mhText);
         panel.add(jeeText);
-
         panel.add(outof1);
         panel.add(outof2);
         panel.add(outof3);
         panel.add(outof4);
-
         panel.add(subssc);
         panel.add(subhsc);
         panel.add(subjee);
         panel.add(submh);
-
         panel.add(ssc);
         panel.add(hsc);
         panel.add(mhcet);
         panel.add(jee);
-
         panel.add(alerttext);
-
         panel.add(submit);
-
-
 
         //setPos
         title.setBounds(0,0,1280,90);
         subtitle.setBounds(251,159,288,46);
-
         sscText.setBounds(338,236,187,44);
         hscText.setBounds(338,305,187,44);
         mhText.setBounds(338,374,187,44);
         jeeText.setBounds(338,443,187,44);
-
         outof1.setBounds(709,305,67,44);
         outof2.setBounds(709,236,67,44);
         outof3.setBounds(709,374,67,44);
         outof4.setBounds(709,443,67,44);
-
         ssc.setBounds(525,236,163,44);
         hsc.setBounds(525,305,163,44);
         mhcet.setBounds(525,374,163,44);
         jee.setBounds(525,443,163,44);
-
         subssc.setBounds(865,236,163,44);
         subhsc.setBounds(865,305,163,44);
         submh.setBounds(865,374,163,44);
         subjee.setBounds(865,443,163,44);
-
         alerttext.setBounds(399,575,481,21);
-        
         submit.setBounds(510,605,260,53);
 
         // STYLing
@@ -137,8 +118,8 @@ public class addmissionForm extends JFrame {
         alerttext.setVisible(false);
         setVisible(true);
 
-
         //logic
+            //BUTTON PRESS CODES
         submit.addActionListener(e ->
         {
             if ( mhcet.getText().isEmpty() == false && jee.getText().isEmpty() == false && ssc.getText().isEmpty() == false && hsc.getText().isEmpty() == false) {
@@ -152,8 +133,6 @@ public class addmissionForm extends JFrame {
             List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"mhcet_certificate.png");
             List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"jee_certificate.png");
             EligibilityChecker();
-            //List.add(jee.getText());
-
                 int a = storeData(List);//calling Event
                 if (a == 1) {//Check For Mysql Exceptions
                     new StudentPortal(ID);
@@ -161,11 +140,9 @@ public class addmissionForm extends JFrame {
                 }else{
                     new StudentPortal(ID);
                     setVisible(false); 
-                }  
-                
+                }
             }else {alerttext.setVisible(true); }
         });
-
         subssc.addActionListener(e -> {
             JFileChooserOpener("ssc");
             subssc.setText("Selected");
@@ -182,7 +159,7 @@ public class addmissionForm extends JFrame {
             JFileChooserOpener("jee");
             subjee.setText("Selected");
         });
-
+        //ARRAY FOR OBJ to Pass to Method
         ArrayList<JTextField> object = new ArrayList<JTextField>();
         object.add(ssc);
         object.add(hsc);

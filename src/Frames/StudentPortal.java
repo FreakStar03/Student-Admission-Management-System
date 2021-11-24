@@ -187,7 +187,7 @@ public class StudentPortal extends JFrame{
     } 
 
     //Checkers
-    private void CheckUser(int a){
+    private void CheckUser(int a){ // Check if given studnet Id is Registrated in StudentReg
     try{  
         Class.forName("com.mysql.cj.jdbc.Driver");  
         Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","Chiragsp","admin");  
@@ -207,7 +207,7 @@ public class StudentPortal extends JFrame{
         }catch(Exception e){ System.out.println(e);}        
     }
 
-    private void CheckForms(int a){
+    private void CheckForms(int a){// Check if studnet has filled Registration and Personal Form
         try{  
             ArrayList<String> list = new ArrayList<>(Arrays.asList("PersonalData", "RegistrationData"));
             for(int counter = 0; counter < list.size(); counter++){
@@ -233,7 +233,7 @@ public class StudentPortal extends JFrame{
             }catch(Exception e){ System.out.println(e); }        
         }
     
-    private void checkEnrollement(int a){
+    private void checkEnrollement(int a){ //Check if student has data in BranchData Table
         try{  
                 Class.forName("com.mysql.cj.jdbc.Driver");  
                 Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  

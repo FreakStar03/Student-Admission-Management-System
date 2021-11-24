@@ -2,12 +2,12 @@ package Frames;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-
 import sql.conn;
 
 public class BatchForm  extends JFrame{
     static int StudentID = 0;
     public BatchForm(int ID){
+        //Constructor
         StudentID = ID;
         setTitle("Branch Form");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -99,16 +99,14 @@ public class BatchForm  extends JFrame{
         BKDetail.setBounds(802,201,313,195);
         alertText.setBounds(410,522,488,46);
         subBut.setBounds(533,579,232,49);
-
         branchField.setBounds(297,119,249,39);
         CouField.setBounds(297,190,249,39);
         AYField.setBounds(297,261,249,39);
         PIField.setBounds(297,334,249,39);
-
-
         secBg.setBounds(714,119,489,365);
         mainBg.setBounds(36,92,1208,592);
 
+        //Butoon Press
         subBut.addActionListener(e ->
         {
 
@@ -123,7 +121,6 @@ public class BatchForm  extends JFrame{
             new StudentPortal(ID);
             setVisible(false);
             };
-            //rg.setVisible(true);
         });
 
     }

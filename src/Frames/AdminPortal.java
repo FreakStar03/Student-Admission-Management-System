@@ -1,4 +1,5 @@
 package Frames;
+//IMPORTS
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -6,19 +7,19 @@ import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.sql.*;
 import java.awt.event.*;
-
 import sql.conn;
+import javax.swing.table.DefaultTableModel;
 
- import javax.swing.table.DefaultTableModel;
 public class AdminPortal extends JFrame{
+   //GLOBAL VARIABLE
     static int Tstart = 0; 
     static int Tend = 20; 
     static String MbranchSort = "ALL";
     static String MEligibleSort = "yes";
     static String SearchData = "%%";
 
-
-    public AdminPortal(){
+//Constructor
+   public AdminPortal(){
         setTitle("Admin Portal");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1280, 750);
@@ -50,7 +51,6 @@ public class AdminPortal extends JFrame{
         JTextField SearchField = new JTextField();
         String sortBy[] = {"ALL", "CS", "IT", "EXTC", "MECH" };
         JComboBox<String> SBField = new JComboBox<> (sortBy);
-
         JPanel bg = new JPanel();
 
         //add
@@ -68,7 +68,6 @@ public class AdminPortal extends JFrame{
         title.setFont(new Font("Serif", Font.PLAIN, 30));
         title.setOpaque(true);
         title.setBackground(Color.lightGray);
-
         subTitle.setFont(new Font("Serif", Font.PLAIN, 20));
         Logout.setForeground(Color.blue);
 
@@ -84,6 +83,7 @@ public class AdminPortal extends JFrame{
         SBField.setBounds(1089,111,148,35);
         bg.setBounds(19,170,1241,520);
 
+        //ARRAY FOR Table
          String[] columnNames = { "PdID", "id", "firstname", "middlename", "lastname", "phoneno1", "phoneno2",
                "address", "email", "dob", "city", "state", "pincode", "photoAddress", "IdAddress","Bid" ,"id" , "Course", "PaymentID", "Branch", "Year" , "Rid", "id", "SSC", "HSC", "MHCET", "JEE", "sscCert", "hscCert", "mhCert", "jeeCert", "eligible"};
          DefaultTableModel tableModel = new DefaultTableModel(my_db_select(), columnNames);
@@ -112,9 +112,9 @@ public class AdminPortal extends JFrame{
          pane.add(tablePanel);
          pane.add(bg);
 
+         //Button Press
          SBField.setSelectedItem(MbranchSort);
          SBField.addItemListener(event -> {
-            // The item affected by the event.
             String item = (String) event.getItem();
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 MbranchSort = item;
@@ -124,8 +124,8 @@ public class AdminPortal extends JFrame{
             };
         });
 
-        EligibleDropDown.setSelectedItem(MEligibleSort);
-        EligibleDropDown.addItemListener(event -> {
+         EligibleDropDown.setSelectedItem(MEligibleSort);
+         EligibleDropDown.addItemListener(event -> {
            // The item affected by the event.
            String item = (String) event.getItem();
            if (event.getStateChange() == ItemEvent.SELECTED) {
@@ -134,12 +134,7 @@ public class AdminPortal extends JFrame{
                main.setVisible(true);
                dispose();
            };
-           // if (event.getStateChange() == ItemEvent.DESELECTED) {
-           //    System.out.println("DS:" + item);
-           // }
-       });
-        
-
+         });
          prevbtn.addActionListener(e -> {
             if (Tstart == 0 && Tend == 20) {
                Tstart = 0;
@@ -185,10 +180,6 @@ public class AdminPortal extends JFrame{
             }
     
         });
-    
-
-
-
         Logout.addMouseListener(new MouseAdapter()   {   
             public void mouseClicked(MouseEvent e)   
             { 
@@ -199,6 +190,8 @@ public class AdminPortal extends JFrame{
 
         setVisible(true);
     }
+
+    //Table Writer for Db
     public  String[][] my_db_select() {
         
         String[][] data ={ }  ;

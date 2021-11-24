@@ -9,7 +9,6 @@ import java.util.*;
 import java.sql.*;
 import org.jdatepicker.impl.*;
 import LibExtra.DateLabelFormatter;
-
 import sql.conn;
 
 public class PersonalDetailsForm extends JFrame {
@@ -69,7 +68,6 @@ public class PersonalDetailsForm extends JFrame {
         JLabel photo = new JLabel("Photo:");
         JLabel idProof = new JLabel("Id Proof (Adhar Card):");
         JLabel alertText = new JLabel("Alert! Enter all Field Correctly!", JLabel.CENTER);
-
         JTextField fnField = new JTextField();
         JTextField lnField = new JTextField();
         JTextField mnField = new JTextField();
@@ -82,7 +80,6 @@ public class PersonalDetailsForm extends JFrame {
         JTextField PincodeField = new JTextField();
         JButton photofnField = new JButton("No File"); // file upload
         JButton idProofField = new JButton("No File"); // file upload
-
         JButton subbtn = new JButton("Submit");
 
         // add
@@ -149,11 +146,8 @@ public class PersonalDetailsForm extends JFrame {
         addsField.setBounds(297, 472, 249, 102);
         dob.setBounds(706, 119, 239, 37);
         dobField.setBounds(942, 119, 249, 39);
-
         dobField.getComponent(0).setPreferredSize(new Dimension(249, 39));
         dobField.getComponent(1).setPreferredSize(new Dimension(20, 39));
-        // dobField.setBorder(border);
-
         photo.setBounds(705, 403, 239, 37);
         photofnField.setBounds(946, 403, 249, 39);
         idProof.setBounds(702, 474, 239, 37);
@@ -170,7 +164,6 @@ public class PersonalDetailsForm extends JFrame {
         setVisible(true);
 
         // Logic
-
         idProofField.addActionListener(e -> {
             JFileChooserOpener("photo");
             idProofField.setText("Selected");
@@ -179,7 +172,6 @@ public class PersonalDetailsForm extends JFrame {
             JFileChooserOpener("ID");
             photofnField.setText("Selected");
         });
-
         subbtn.addActionListener(e -> {
             //adding values in ArrayList
             List.clear(); //empty lists
@@ -196,7 +188,6 @@ public class PersonalDetailsForm extends JFrame {
             List.add(PincodeField.getText());
             List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"ID.png");
             List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"Photo.png");
-
             int a = storeData(List);//calling Event
             if (a == 1) {//Check For Mysql Exceptions
                 new StudentPortal(ID);

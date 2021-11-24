@@ -1,9 +1,8 @@
 package Frames;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-//import java.awt.event.*;
-
 import sql.conn;
 
 public class RegFrame extends JFrame{
@@ -20,7 +19,6 @@ public class RegFrame extends JFrame{
         add (titleMain, BorderLayout.NORTH);
         setResizable(false);
 
-
         //plane
         JPanel pane = new JPanel();
         add(pane, BorderLayout.CENTER);
@@ -28,6 +26,7 @@ public class RegFrame extends JFrame{
         pane.setBackground(Color.white);
         pane.setSize(411, 731);
 
+        //Objects
         JLabel emailLable = new JLabel ("EMAIL");
         JTextField email = new JTextField (5);
         JLabel nameLable = new JLabel ("Name");
@@ -39,7 +38,6 @@ public class RegFrame extends JFrame{
         JLabel title = new JLabel ("Registration Portal", JLabel.CENTER);
         JLabel cpwLable = new JLabel ("Confirm Password");
         JPasswordField cpw = new JPasswordField (5);
-       // JButton back = new JButton ("Back");
         JLabel alert_text = new JLabel ("Enter all field Properly!", JLabel.CENTER);
 
         //styling
@@ -52,10 +50,8 @@ public class RegFrame extends JFrame{
         pw.setFont(new Font("serif", Font.PLAIN, 15));
         cpw.setFont(new Font("serif", Font.PLAIN, 15));
         email.setFont(new Font("serif", Font.PLAIN, 15));
-
         alert_text.setFont(new Font("Courier", Font.PLAIN, 15));
         alert_text.setForeground(Color.decode("#9D1010"));
-
         alert_text.setVisible(false); //setfalse
         
         //add components
@@ -71,6 +67,7 @@ public class RegFrame extends JFrame{
         pane.add(alert_text);
         pane.add(sub);
         pane.add(login);
+
         //set component bounds (only needed by Absolute Positioning)
         //setbounds(pos x, pos y , width, breadth)
         title.setBounds(17, 50, 376 , 57);
@@ -85,8 +82,8 @@ public class RegFrame extends JFrame{
         alert_text.setBounds(20,430,370,33);
         sub.setBounds(21,496,160,49);
         login.setBounds(230,496,160,49);
-        //setVisible(true);
-        
+
+        //Button Press
         sub.addActionListener(e ->
         {
             String myPass=String.valueOf(pw.getPassword());
@@ -114,6 +111,8 @@ public class RegFrame extends JFrame{
             rg.setVisible(true);
         });
    };
+
+   //Store Data
    public void SubmitForm(String name, String email, String pw)
    {
     try{  
@@ -131,6 +130,7 @@ public class RegFrame extends JFrame{
         }catch(Exception e){ System.out.println(e);}        
    }
 
+   //get Data
    public int getStudentId(String email, String pw)
    {
     try{  
