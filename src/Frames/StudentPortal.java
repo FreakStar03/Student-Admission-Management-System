@@ -68,6 +68,8 @@ public class StudentPortal extends JFrame{
         LogoutBtn.setBorder(null);
         LogoutBtn.setOpaque(true);
 
+        BatchForm.setEnabled(false);
+
 
 
         LogoutBtn.setBackground(Color.lightGray);
@@ -123,11 +125,15 @@ public class StudentPortal extends JFrame{
 
         if (Pbtn) { //Check IF FormAlreadySub
             userDetail.setEnabled(false);
-            userDetail.setBackground(Color.GRAY);
+            //userDetail.setBackground(Color.GRAY);
         }
         if (Rbtn) { //Check IF FormAlreadySub
             addmissionForm.setEnabled(false);
-            addmissionForm.setBackground(Color.GRAY);
+            //addmissionForm.setBackground(Color.GRAY);
+        }
+
+        if (Pbtn == true && Rbtn == true ) {
+            BatchForm.setEnabled(true);
         }
 
         LogoutBtn.addActionListener(e ->

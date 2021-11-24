@@ -64,10 +64,10 @@ public class addmissionForm extends JFrame {
         jee.setDocument(new JTextFieldLimit(3));
 
 
-        JButton subssc =  new JButton("SSC Certificate");
-        JButton subhsc =  new JButton("HSC Certificate");
-        JButton submh =  new JButton("MHCET Certificate");
-        JButton subjee =  new JButton("JEE Certificate");
+        JButton subssc =  new JButton("No SSC Certificate" );
+        JButton subhsc =  new JButton("No HSC Certificate");
+        JButton submh =  new JButton("No MHCET Certificate");
+        JButton subjee =  new JButton("No JEE Certificate");
 
         JButton submit =  new JButton("Submit");
 
@@ -168,15 +168,19 @@ public class addmissionForm extends JFrame {
 
         subssc.addActionListener(e -> {
             JFileChooserOpener("ssc");
+            subssc.setText("Selected");
         });
         subhsc.addActionListener(e -> {
             JFileChooserOpener("hsc");
+            subhsc.setText("Selected");
         });
         submh.addActionListener(e -> {
             JFileChooserOpener("mhcet");
+            submh.setText("Selected");
         });
         subjee.addActionListener(e -> {
             JFileChooserOpener("jee");
+            subjee.setText("Selected");
         });
 
         ArrayList<JTextField> object = new ArrayList<JTextField>();

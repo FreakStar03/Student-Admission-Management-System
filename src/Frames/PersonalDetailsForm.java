@@ -80,8 +80,8 @@ public class PersonalDetailsForm extends JFrame {
         JComboBox<String> CityField = new JComboBox<>(cityStr);
         JComboBox<String> StateField = new JComboBox<>(State);
         JTextField PincodeField = new JTextField();
-        JButton photofnField = new JButton("Select File"); // file upload
-        JButton idProofField = new JButton("Select File"); // file upload
+        JButton photofnField = new JButton("No File"); // file upload
+        JButton idProofField = new JButton("No File"); // file upload
 
         JButton subbtn = new JButton("Submit");
 
@@ -173,9 +173,11 @@ public class PersonalDetailsForm extends JFrame {
 
         idProofField.addActionListener(e -> {
             JFileChooserOpener("photo");
+            idProofField.setText("Selected");
         });
         photofnField.addActionListener(e -> {
             JFileChooserOpener("ID");
+            photofnField.setText("Selected");
         });
 
         subbtn.addActionListener(e -> {
@@ -260,6 +262,7 @@ public class PersonalDetailsForm extends JFrame {
         if(jfc.getSelectedFile() != null){
             if (caller == "photo") {
                 PhotoPath = jfc.getSelectedFile().getPath();
+
             } else if(caller == "ID") {
                 IdPath = jfc.getSelectedFile().getPath();
             }
