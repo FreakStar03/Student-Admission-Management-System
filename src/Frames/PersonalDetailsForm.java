@@ -207,6 +207,7 @@ public class PersonalDetailsForm extends JFrame {
         }; 
     }
 
+
     private int storeData(ArrayList<String> arr)//Store Data To Mysql
     {
      try{
