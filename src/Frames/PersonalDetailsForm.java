@@ -9,6 +9,7 @@ import java.util.*;
 import java.sql.*;
 import org.jdatepicker.impl.*;
 import LibExtra.DateLabelFormatter;
+import LibExtra.JTextFieldLimit;
 import sql.conn;
 
 public class PersonalDetailsForm extends JFrame {
@@ -196,6 +197,10 @@ public class PersonalDetailsForm extends JFrame {
                 alertText.setVisible(true);
             }
         });
+
+        //phone number input limit 
+        pno1Field.setDocument(new JTextFieldLimit(9));
+        pno2Field.setDocument(new JTextFieldLimit(9));
 
         // ALL STYLING
         Component[] component = pane.getComponents();
