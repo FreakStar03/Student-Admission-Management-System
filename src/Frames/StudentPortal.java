@@ -11,6 +11,7 @@ public class StudentPortal extends JFrame{
     public boolean isLogout = false;
     static int StudentID;
     static String StudentName;
+    static Boolean Eligible = false;
     static ArrayList<String> enrollList= new ArrayList<String>();
     static boolean Pbtn = false;
     static boolean Rbtn = false;
@@ -80,10 +81,24 @@ public class StudentPortal extends JFrame{
                 //Badges
         if (enrollList.isEmpty() != true) {
             for(int x = 0,  y = 480; x < enrollList.size(); x++){
-                JLabel localLabel = new JLabel(enrollList.get(x));
+                JLabel localLabel = new JLabel("⚫️  " + enrollList.get(x) + ((Eligible) ? " ✅️" : " ❌"));
+                String Currentname = enrollList.get(x);
+                JButton localBtn = new JButton("Delete");
                 y += 40 ;
                 localLabel.setBounds(90,y,332,42);
+                localBtn.setBounds(332,y,89, 23);
+                //localBtn.addActionListener(e ->{ deleteEnrollment(StudentID,  Currentname);});
+                localBtn.addActionListener(e ->{
+                       int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel your Enrollment! For this Course!", "Confirm Your Choice!",
+                          JOptionPane.YES_NO_OPTION,
+                          JOptionPane.QUESTION_MESSAGE);
+                       if(result == JOptionPane.YES_OPTION){
+                         deleteEnrollment(StudentID,  Currentname);
+                       }
+                    }
+                 );
                 panel.add(localLabel);
+                panel.add(localBtn);
             } 
             enrollList.clear();
         }
@@ -182,6 +197,7 @@ public class StudentPortal extends JFrame{
         CheckUser(ID);
         CheckForms(ID);
         checkEnrollement(ID);
+        checkEligibility(ID);
         StudentPortal st = new StudentPortal();
         st.setVisible(true);
     } 
@@ -249,6 +265,42 @@ public class StudentPortal extends JFrame{
                 Pstatement.close();
                 con.close();                                     
 
+            }catch(Exception e){ System.out.println(e); }        
+        }
+
+    private void checkEligibility(int a){ //Check if student has data in BranchData Table
+    try{  
+            Class.forName("com.mysql.cj.jdbc.Driver");  
+            Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
+            PreparedStatement Pstatement=con.prepareStatement("SELECT eligible FROM RegistrationData WHERE id = ?");
+            Pstatement.setInt(1, a);
+            ResultSet rs = Pstatement.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+                    if (rs.getString(1).equals("yes")) {
+                        Eligible = true;
+                        System.out.println("true");
+                    } else {
+                        Eligible = false;
+                    }
+            };
+            Pstatement.close();
+            con.close();                                     
+
+        }catch(Exception e){ System.out.println(e); }        
+    }
+
+    private void deleteEnrollment(int a, String Branch){ //Check if student has data in BranchData Table
+        try{  
+                Class.forName("com.mysql.cj.jdbc.Driver");  
+                Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
+                PreparedStatement Pstatement=con.prepareStatement("DELETE FROM BranchData WHERE Branch= '" + Branch + "' AND " + "id = ?" );
+                Pstatement.setInt(1, a);
+                Pstatement.executeUpdate();
+                Pstatement.close();
+                con.close();     
+                new StudentPortal(StudentID);
+                dispose();
             }catch(Exception e){ System.out.println(e); }        
         }
 
