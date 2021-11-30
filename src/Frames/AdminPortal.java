@@ -1,9 +1,12 @@
 package Frames;
+import javax.imageio.ImageIO;
 //IMPORTS
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.awt.Dimension;
 import java.sql.*;
 import java.awt.event.*;
@@ -113,6 +116,24 @@ public class AdminPortal extends JFrame{
          pane.add(bg);
 
          //Button Press
+         jt.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jt.rowAtPoint(evt.getPoint());
+                int col = jt.columnAtPoint(evt.getPoint());
+                if (col == 13 || col == 14 || col == 27 || col == 28 || col == 29 || col == 30 ) {
+                   try{
+                        String file_path =  (String) jt.getModel().getValueAt(row, col);
+                        //System.out.println(file_path);
+                        BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir")  + file_path));
+                        JLabel picLabel = new JLabel(new ImageIcon(image));
+                        JOptionPane.showMessageDialog(null, picLabel, "About", JOptionPane.PLAIN_MESSAGE, null);
+                   }catch(Exception e){
+
+                   }
+                }
+             }
+            });
          SBField.setSelectedItem(MbranchSort);
          SBField.addItemListener(event -> {
             String item = (String) event.getItem();
@@ -192,6 +213,7 @@ public class AdminPortal extends JFrame{
     }
 
     //Table Writer for Db
+
     public  String[][] my_db_select() {
         
         String[][] data ={ }  ;

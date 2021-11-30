@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TableIcon",
+            "request": "launch",
+            "mainClass": "LibExtra.TableIcon",
+            "projectName": "github_a3efc6dd"
+        },
+        {
+            "type": "java",
             "name": "Launch PdfOutput",
             "request": "launch",
             "mainClass": "LibExtra.PdfOutput",
