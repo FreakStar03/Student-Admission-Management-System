@@ -43,7 +43,7 @@ public class addmissionForm extends JFrame {
         JLabel subtitle = new JLabel("Academics details", JLabel.CENTER);
         JLabel sscText = new JLabel("SSC Percentage:" );
         JLabel hscText = new JLabel("HSC Percentage:");
-        JLabel mhText = new JLabel("Mhcet Percentile:");
+        JLabel mhText = new JLabel("MH-Cet Percentile:");
         JLabel jeeText = new JLabel("JEE Percentile:");
         JLabel outof1 = new JLabel(" /100%");
         JLabel outof2 = new JLabel(" /100%");
@@ -56,7 +56,7 @@ public class addmissionForm extends JFrame {
         JTextField jee = new JTextField();
         JButton subssc =  new JButton("No SSC Certificate" );//buttons
         JButton subhsc =  new JButton("No HSC Certificate");
-        JButton submh =  new JButton("No MHCET Certificate");
+        JButton submh =  new JButton("No MH-Cet Certificate");
         JButton subjee =  new JButton("No JEE Certificate");
         JButton submit =  new JButton("Submit");
 

@@ -33,7 +33,7 @@ public class StudentPortal extends JFrame{
         panel.setSize(1280, 720);//mistake
 
         //obj calling
-        JLabel title = new JLabel("A P Shah Institude of Technology", JLabel.CENTER);
+        JLabel title = new JLabel("A. P. Shah Institude of Technology", JLabel.CENTER);
 
         JLabel up = new JLabel("User Profile :");
         JLabel stdName = new JLabel("Student Name :");

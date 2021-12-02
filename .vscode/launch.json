@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch JScrollablePanelTest",
+            "request": "launch",
+            "mainClass": "LibExtra.JScrollablePanelTest",
+            "projectName": "github_a3efc6dd"
+        },
+        {
+            "type": "java",
             "name": "Launch TableIcon",
             "request": "launch",
             "mainClass": "LibExtra.TableIcon",
