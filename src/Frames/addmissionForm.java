@@ -25,7 +25,19 @@ public class addmissionForm extends JFrame {
         StudentID = ID;
 
         setTitle("Addmission Form");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);// close java prog on close of window
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(null, 
+                    "Form is not saved, still want to exit to Student Panel?", "Alert!", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                        new StudentPortal(StudentID);
+                        dispose();
+                }
+            }
+        });
         setSize(1280, 720);// window size
         setLayout(null);// layout to null for window
         setLocationRelativeTo(null);// start window in center on monitor

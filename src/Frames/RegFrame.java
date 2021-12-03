@@ -22,8 +22,9 @@ public class RegFrame extends JFrame{
         //plane
         JPanel pane = new JPanel();
         add(pane, BorderLayout.CENTER);
+        pane.setBackground(Color.decode("#EDE3E3"));
         pane.setLayout(null);
-        pane.setBackground(Color.white);
+        //pane.setBackground(Color.white);
         pane.setSize(411, 731);
 
         //Objects

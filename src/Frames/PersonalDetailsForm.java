@@ -22,7 +22,20 @@ public class PersonalDetailsForm extends JFrame {
     public PersonalDetailsForm(int ID) {
         StudentID = ID;
         setTitle("Personal Details");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(null, 
+                    "Form is not saved, still want to exit to Student Panel?", "Alert!", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                        new StudentPortal(StudentID);
+                        dispose();
+                }
+            }
+        });
         setSize(1280, 750);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -189,7 +202,7 @@ public class PersonalDetailsForm extends JFrame {
             List.add(PincodeField.getText());
             List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"ID.png");
             List.add("/Storage/" + StudentID + "/" + StudentID + "-" +"Photo.png");
-            int a = storeData(List);//calling Event
+            int a = storeData(List);//calling Event of JDBC
             if (a == 1) {//Check For Mysql Exceptions
                 new StudentPortal(ID);
                 setVisible(false); 
