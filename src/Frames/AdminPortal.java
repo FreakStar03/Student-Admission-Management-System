@@ -225,12 +225,16 @@ public class AdminPortal extends JFrame{
            Connection con=DriverManager.getConnection(conn.Conn, conn.Conn_user, conn.Conn_pw);  
            Statement st=con.createStatement();
            ResultSet rs;
+           String Query;
            if (branchSort != "ALL") {
-              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id WHERE c.eligible = '" + MEligibleSort+ "' AND CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end);
+              Query = "SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id WHERE c.eligible = '" + MEligibleSort+ "' AND CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' AND b.Branch ='" + branchSort + "' LIMIT " + start + "," + end;
+              rs=st.executeQuery(Query);
            }
            else {
-              rs=st.executeQuery("SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id Where c.eligible = '" + MEligibleSort+ "' AND CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end);
+              Query = "SELECT a.*, b.*, c.* FROM PersonalData as a LEFT JOIN BranchData as b ON a.id=b.id LEFT JOIN RegistrationData as c ON b.id = c.id Where c.eligible = '" + MEligibleSort+ "' AND CONCAT_WS('',firstname, lastname, middlename) LIKE '" + SearchData +"' LIMIT " + start + "," + end;
+              rs=st.executeQuery(Query);
            }
+           System.out.println(Query);
            ResultSetMetaData rsmd = rs.getMetaData();
            String[][] dataTemp = new String[20][rsmd.getColumnCount()]; // [rows][columns]
            data = dataTemp;  

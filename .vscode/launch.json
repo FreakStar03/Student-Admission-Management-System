@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Words",
+            "request": "launch",
+            "mainClass": "Words",
+            "projectName": "github_a3efc6dd"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestSynchronization2",
+            "request": "launch",
+            "mainClass": "TestSynchronization2",
+            "projectName": "github_a3efc6dd"
+        },
+        {
+            "type": "java",
+            "name": "Launch Multithread",
+            "request": "launch",
+            "mainClass": "Multithread",
+            "projectName": "github_a3efc6dd"
+        },
+        {
+            "type": "java",
             "name": "Launch JScrollablePanelTest",
             "request": "launch",
             "mainClass": "LibExtra.JScrollablePanelTest",

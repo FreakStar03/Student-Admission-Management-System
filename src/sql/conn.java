@@ -1,5 +1,5 @@
 package sql;
-
+//JDBC DRIVER VERSION 8.0.26
 public class conn {
     public static final String Conn_user = "Chiragsp";
     public static final String Conn_pw = "admin";
